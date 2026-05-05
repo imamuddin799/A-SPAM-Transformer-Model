@@ -128,7 +128,8 @@ ehthumbs.db
 Thumbs.db
 
 # Static and media files
-static/
+# Keep source static assets in version control if they are part of the app.
+# Ignore user-uploaded media and generated static output directories.
 media/
 
 # Database

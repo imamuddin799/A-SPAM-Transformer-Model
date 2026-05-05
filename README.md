@@ -217,7 +217,7 @@ When uploading this project to GitHub, ensure you do not commit sensitive or unn
 - **Virtual Environments**: Folders like `venv/`, `env/`, or `.venv/` contain installed packages and should not be shared.
 - **Database Files**: Avoid uploading database files (e.g., `*.sqlite3`) or backups that may contain sensitive user data.
 - **Secret Keys and Credentials**: Never commit API keys, database passwords, or any configuration files with real credentials. Use placeholders as shown in the installation guide.
-- **Static and Media Files**: Generated static files or user-uploaded media should not be committed, as they can be large and contain private data.
+- **Static and Media Files**: Source static assets required by the app (such as images, CSS, or JS files under `static/`) should be committed. Only generated static output folders or uploaded media should be ignored.
 - **Logs and Temporary Files**: Files like `*.log`, `tmp/`, or `temp/` often contain runtime information and should be ignored.
 - **IDE and OS Files**: Configurations for editors (`.vscode/`, `.idea/`) or OS-specific files (`.DS_Store`, `Thumbs.db`) are personal and not needed in the repository.
 - **Generated Data**: Files like `labeled_data.csv` that are generated during runtime or training should not be uploaded unless they are part of the public dataset.
