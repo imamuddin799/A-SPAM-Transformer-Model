@@ -4,6 +4,8 @@
 [![Django Version](https://img.shields.io/badge/django-5.1.x-green.svg)](https://www.djangoproject.com/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
+**GitHub repository:** https://github.com/imamuddin799/A-SPAM-Transformer-Model
+
 ## Overview
 
 This project is a Django-based SMS spam classification platform with separate Remote User and Service Provider interfaces.
@@ -116,7 +118,7 @@ The app stores data in these models defined in `Remote_User/models.py`:
 1. **Clone the Repository**
 
    ```bash
-   git clone <your-repo-url>
+   git clone https://github.com/imamuddin799/A-SPAM-Transformer-Model.git
    cd aspam_transformer_model
    ```
 
