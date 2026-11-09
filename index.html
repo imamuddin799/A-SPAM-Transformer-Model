@@ -630,6 +630,13 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
+            .player-info .player-title-tag {
+                display: inline;
+                font-size: 10px;
+                font-weight: 400;
+                color: var(--muted);
+                white-space: nowrap;
+            }
             .player-info small {
                 font-size: 10px;
                 color: var(--muted);
@@ -1184,7 +1191,7 @@
             }
             .audio-library-card .toolbar {
                 display: grid;
-                grid-template-columns: repeat(2, minmax(0, 1fr));
+                grid-template-columns: repeat(3, minmax(0, 1fr));
                 gap: 12px;
                 align-items: end;
             }
@@ -1807,9 +1814,20 @@
         margin: 0;
     }
     #view:has(#ayahList) .ayah-actions button {
-        flex: 0 0 auto;
-        min-width: 34px;
-        min-height: 34px;
+        box-sizing: border-box;
+        flex: 0 0 36px;
+        width: 36px;
+        min-width: 36px;
+        max-width: 36px;
+        height: 36px;
+        min-height: 36px;
+        max-height: 36px;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+        vertical-align: middle;
     }
     @media (max-width: 420px) {
         #view:has(#ayahList) > .section-head {
@@ -1823,9 +1841,14 @@
             gap: 5px;
         }
         #view:has(#ayahList) .ayah-actions button {
-            min-width: 32px;
-            min-height: 32px;
-            padding: 6px 7px;
+            flex-basis: 36px;
+            width: 36px;
+            min-width: 36px;
+            max-width: 36px;
+            height: 36px;
+            min-height: 36px;
+            max-height: 36px;
+            padding: 0;
         }
     }
 
@@ -1906,6 +1929,23 @@
         overflow-x: hidden;
         overscroll-behavior: contain;
         padding: 0 10px 10px;
+    }
+    .custom-select-menu-footer {
+        flex: 0 0 auto;
+        position: sticky;
+        bottom: 0;
+        padding: 12px 14px calc(12px + env(safe-area-inset-bottom, 0px));
+        border-top: 1px solid var(--line);
+        background: #0b2119;
+        box-shadow: 0 -8px 18px rgba(0, 0, 0, .2);
+    }
+    .custom-select-add-button {
+        width: 100%;
+        min-height: 44px;
+    }
+    .custom-select-add-button:disabled {
+        opacity: .45;
+        cursor: not-allowed;
     }
     .custom-select-option[hidden] {
         display: none !important;
@@ -2345,6 +2385,279 @@ body {
 .timing-export-log { max-height: 250px; overflow: auto; margin-top: 12px; padding: 12px; border-radius: 10px; border: 1px solid var(--line); background: rgba(0,0,0,.16); color: var(--muted); font: 11px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace; white-space: pre-wrap; }
 @media (max-width: 650px) { .timing-export-stats { grid-template-columns: 1fr; } }
 
+
+
+/* Audio Library — aligned with the existing Quran Reader visual system */
+.audio-library-card {
+    max-width: 1040px;
+    padding: 24px;
+    background: linear-gradient(145deg, rgba(16, 43, 33, .98), rgba(10, 30, 23, .98));
+}
+.audio-library-card > .card-title {
+    font-size: 15px;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+}
+.audio-library-card > .card-title > span:last-child {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border: 1px solid rgba(216, 182, 107, .24);
+    border-radius: 11px;
+    background: rgba(216, 182, 107, .08);
+    font-size: 18px;
+}
+.audio-library-card .toolbar {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin: 20px 0 16px;
+}
+.audio-library-card .toolbar label {
+    min-width: 0 !important;
+    gap: 8px !important;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 600;
+}
+.audio-library-card .toolbar select,
+.audio-collection-tools select {
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 13px;
+    border: 1px solid var(--line);
+    border-radius: 11px;
+    background: rgba(5, 22, 16, .72);
+    color: var(--text);
+    outline: none;
+}
+.audio-library-card .toolbar select:focus,
+.audio-collection-tools select:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(216, 182, 107, .1);
+}
+.audio-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 9px; margin: 4px 0 18px; }
+.audio-actions > .primary-btn { min-height: 43px; padding: 11px 19px; }
+.audio-actions .audio-queue-add-wrap > .ghost-btn { min-height: 43px; padding: 11px 15px; }
+.audio-queue-add-row {
+    display: grid;
+    grid-template-columns: minmax(150px, 220px) minmax(220px, 1fr);
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+}
+.audio-queue-add-row label {
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 600;
+}
+.audio-queue-add-row select {
+    width: 100%;
+    min-height: 40px;
+    padding: 8px 11px;
+    border: 1px solid var(--line);
+    border-radius: 11px;
+    background: rgba(5, 22, 16, .72);
+    color: var(--text);
+}
+.audio-queue-add-row select:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(216, 182, 107, .1);
+    outline: none;
+}
+.audio-collection-tools {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 9px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+}
+.audio-collection-tools .ghost-btn,
+.audio-collection-tools .primary-btn {
+    min-height: 40px;
+    padding: 9px 13px;
+    white-space: nowrap;
+}
+.audio-collection-tools select {
+    flex: 1 1 190px;
+    min-width: 160px;
+    min-height: 40px;
+    padding: 8px 11px;
+    font-size: 12px;
+}
+.audio-collections {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 16px;
+    max-width: 1040px;
+    margin-top: 18px;
+}
+.audio-collection-card {
+    min-width: 0;
+    padding: 20px;
+}
+.audio-collection-card > .card-title {
+    min-height: 34px;
+    margin-bottom: 14px;
+    padding-bottom: 13px;
+    border-bottom: 1px solid var(--line);
+    font-size: 14px;
+}
+.audio-collection-card > .card-title small {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 27px;
+    min-height: 25px;
+    padding: 3px 9px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background: rgba(255,255,255,.035);
+    color: var(--muted);
+    font-size: 11px;
+}
+.audio-collection-card > .card-title .ghost-btn {
+    padding: 7px 10px;
+    font-size: 11px;
+}
+.audio-collection-list { display: grid; gap: 10px; min-width: 0; }
+.audio-collection-row[draggable="true"] { cursor: grab; }
+.audio-collection-row[draggable="false"] { cursor: default; }
+.audio-collection-row .audio-drag-handle { cursor: grab; }
+.audio-collection-row .audio-drag-handle:active { cursor: grabbing; }
+.audio-collection-row.is-dragging {
+    border: 2px dashed var(--gold2);
+    border-radius: 10px;
+    background: rgba(216,182,107,.13);
+    box-sizing: border-box;
+    opacity: 1;
+    transform: scale(.985);
+}
+.audio-collection-row.is-dragging-source { display: none !important; }
+.audio-drop-placeholder {
+    min-height: 54px;
+    border: 0;
+    pointer-events: none;
+    border-radius: 10px;
+    background: transparent;
+    box-shadow: none;
+    transition: min-height .12s ease, background .12s ease;
+}
+.audio-collection-row, .audio-drop-placeholder { transition: transform 180ms cubic-bezier(.2,.75,.25,1), background .14s ease; }
+.audio-drag-handle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    min-height: 40px;
+    margin: -8px 5px -8px -7px;
+    color: var(--gold2);
+    font-size: 19px;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+}
+.audio-collection-row.is-playing { background: rgba(216,182,107,.08); border-radius: 8px; padding-inline: 8px; }
+
+.audio-playlist-block {
+    min-width: 0;
+    padding: 13px;
+    border: 1px solid var(--line);
+    border-radius: 13px;
+    background: rgba(255,255,255,.025);
+}
+.audio-playlist-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding-bottom: 11px;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+}
+.audio-playlist-heading > div:first-child { min-width: 0; }
+.audio-playlist-heading h4 {
+    margin: 0 0 4px;
+    overflow-wrap: anywhere;
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 650;
+}
+.audio-playlist-heading small { color: var(--muted); font-size: 10px; }
+.audio-row-actions { display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
+.audio-row-actions .ghost-btn {
+    display: inline-grid;
+    place-items: center;
+    min-width: 30px;
+    min-height: 30px;
+    padding: 4px 7px;
+    border-radius: 8px;
+    font-size: 11px;
+    line-height: 1;
+}
+.audio-row-actions .ghost-btn:disabled { opacity: .3; cursor: not-allowed; }
+.audio-row-actions [data-playlist-play] { padding: 6px 10px; }
+.audio-playlist-surahs { display: grid; gap: 0; padding-top: 4px; }
+.audio-collection-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    min-width: 0;
+    padding: 10px 1px;
+    border-bottom: 1px solid rgba(255,255,255,.055);
+}
+.audio-collection-row:last-child { border-bottom: 0; }
+.audio-row-copy { display: grid; gap: 3px; min-width: 0; }
+.audio-row-copy b {
+    color: #dce7dd;
+    font-size: 11px;
+    font-weight: 550;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+}
+.audio-row-copy small { color: var(--muted); font-size: 10px; }
+.audio-empty {
+    padding: 22px 14px;
+    border: 1px dashed rgba(216,182,107,.22);
+    border-radius: 11px;
+    background: rgba(255,255,255,.015);
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.7;
+    text-align: center;
+}
+.audio-collection-card > .audio-collection-tools {
+    margin-top: 12px;
+    padding-top: 13px;
+}
+.audio-collection-card > .audio-collection-tools .primary-btn,
+.audio-collection-card > .audio-collection-tools .ghost-btn { min-height: 38px; }
+@media (max-width: 850px) {
+    .audio-collections { grid-template-columns: 1fr; }
+    .audio-library-card, .audio-collection-card { padding: 18px; }
+}
+@media (max-width: 560px) {
+    .audio-library-card .toolbar { grid-template-columns: 1fr; gap: 12px; }
+    .audio-queue-add-row { grid-template-columns: 1fr; gap: 7px; }
+    .audio-collection-tools { align-items: stretch; }
+    .audio-collection-tools > button { flex: 1 1 100%; }
+    .audio-collection-tools select { flex: 1 1 100%; }
+    .audio-playlist-heading { align-items: flex-start; flex-direction: column; }
+    .audio-playlist-heading .audio-row-actions { width: 100%; }
+    .audio-playlist-heading .audio-row-actions [data-playlist-play] { margin-right: auto; }
+    .audio-collection-row { align-items: center; }
+    .audio-row-actions { gap: 3px; }
+    .audio-row-actions .ghost-btn { min-width: 28px; min-height: 29px; padding: 4px 6px; }
+}
+
 </style>
 </head>
     <body>
@@ -2442,7 +2755,14 @@ body {
                     lastRecited: JSON.parse(localStorage.getItem("alquran_lastrecited") || "null"),
                     audioQueue: [],
                     audioIndex: 0,
+                    audioLibraryPlaylists: (() => { try { const v = JSON.parse(localStorage.getItem("alquran_audio_playlists") || "[]"); return Array.isArray(v) ? v.filter(p => p && typeof p === "object").map((p, i) => ({ id: String(p.id || `legacy-${i}`), name: String(p.name || `Playlist ${i+1}`), surahs: Array.isArray(p.surahs) ? p.surahs.map(Number).filter(n => Number.isInteger(n) && n >= 1 && n <= 114) : [] })) : []; } catch (_) { return []; } })(),
+                    audioLibraryQueue: (() => { try { const v = JSON.parse(localStorage.getItem("alquran_audio_library_queue") || "[]"); return Array.isArray(v) ? v.map(Number).filter(n => Number.isInteger(n) && n >= 1 && n <= 114) : []; } catch (_) { return []; } })(),
+                    audioLibraryPlayback: null,
                     audioPlaybackContext: null,
+                    // Keep the origin of the currently loaded full-Surah audio separate
+                    // from the live-highlight context, which page rendering may restore.
+                    audioPlaybackSource: null,
+                    audioNextInProgress: false,
                     audioReaderPrepared: null,
                     audioReaderRequestId: 0,
                     timingExportRunning: false,
@@ -2451,6 +2771,7 @@ body {
                     theme: "dark",
                 };
                 const audio = $("#audio");
+                let showWakeLockDebug = localStorage.getItem("quranShowWakeLockDebug") === "true";
                 let audioReaderWakeLock = null;
                 let audioReaderWakeLockRequest = 0;
                 let audioReaderWakeLockLastError = "None";
@@ -2653,15 +2974,23 @@ body {
                             <details>
                                 <summary style="cursor:pointer;color:var(--gold2);font-weight:600;list-style-position:inside">Developer Only</summary>
                                 <p class="muted" style="font-size:12px;line-height:1.7">Advanced development and data maintenance tools.</p>
+                                <label style="display:flex;align-items:center;gap:10px;margin:12px 0;font-size:13px">
+                                    <input type="checkbox" id="showWakeLockDebugSetting" ${showWakeLockDebug ? "checked" : ""}>
+                                    Show Temporary Wake Lock Debug Status
+                                </label>
                                 <button class="ghost-btn" id="openTimingExport">⇩ Timing Data Export</button>
                             </details>
                         </div>`;
+                    $("#showWakeLockDebugSetting").onchange = (event) => {
+                        showWakeLockDebug = Boolean(event.target.checked);
+                        localStorage.setItem("quranShowWakeLockDebug", String(showWakeLockDebug));
+                    };
                     $("#openTimingExport").onclick = () => go("timing-export");
                 }
                 function go(page) {
-                    if (page !== "audio-reader") {
-                        state.audioPlaybackContext = null;
-                    }
+                    // Keep the prepared Surah and its playback context while navigating.
+                    // The persistent audio player may continue playing on other pages;
+                    // audio-reader restores its Ayah view when the user returns.
                     nav(page);
                     (
                         ({
@@ -2722,7 +3051,7 @@ body {
                         const last = state.lastRecited || state.lastRead;
                         last ? loadSurah(last.surah, last.ayah || 1) : go("reader");
                     };
-                    $("#randomVerse").onclick = randomVerse;
+                    $("#randomVerse").onclick = discoverAyah;
                     $("#refreshVerse").onclick = randomVerse;
                     $("#allSurahs").onclick = () => go("reader");
                     document.querySelectorAll("[data-go]").forEach((b) => (b.onclick = () => go(b.dataset.go)));
@@ -2743,6 +3072,14 @@ body {
                     el.querySelectorAll("[data-surah]").forEach(
                         (b) => (b.onclick = () => loadSurah(Number(b.dataset.surah)))
                     );
+                }
+                async function discoverAyah() {
+                    const box = $("#dailyVerse");
+                    if (box) {
+                        box.scrollIntoView({ behavior: "smooth", block: "center" });
+                        box.setAttribute("aria-live", "polite");
+                    }
+                    await randomVerse();
                 }
                 async function randomVerse() {
                     const box = $("#dailyVerse");
@@ -2829,8 +3166,10 @@ body {
                                         ?.scrollIntoView({ behavior: "smooth", block: "center" }),
                                 100
                             );
+                        return true;
                     } catch (e) {
                         errorBox(e);
+                        return false;
                     }
                 }
                 function ayahHTML(a, i) {
@@ -2866,7 +3205,7 @@ body {
                                     notify("Ayah copied");
                                 }
                                 if (action === "play") playAyah(state.currentSurah, num);
-                                if (action === "play-surah") playSurah(state.currentSurah);
+                                if (action === "play-surah") playSurah(state.currentSurah, "reader");
                                 if (action === "word") loadWords(state.currentSurah, num);
                                 if (action === "detail") loadSingleAyah(state.currentSurah, num);
                             })
@@ -3127,9 +3466,94 @@ body {
                             })
                     );
                 }
+                function persistAudioLibraryCollections() {
+                    localStorage.setItem("alquran_audio_playlists", JSON.stringify(state.audioLibraryPlaylists));
+                    localStorage.setItem("alquran_audio_library_queue", JSON.stringify(state.audioLibraryQueue));
+                }
+                function audioLibrarySurahLabel(number) {
+                    const surah = getSurah(Number(number));
+                    return `${Number(number)}. ${surahName(surah)}`;
+                }
+                function renderAudioLibraryCollections() {
+                    const playlistHost = $("#audioPlaylistList");
+                    const queueHost = $("#audioQueueList");
+                    if (!playlistHost || !queueHost) return;
+                    playlistHost.innerHTML = state.audioLibraryPlaylists.length ? state.audioLibraryPlaylists.map((playlist) => `
+                        <div class="audio-playlist-block" data-playlist-block="${esc(playlist.id)}">
+                            <div class="audio-playlist-heading"><div><h4>${esc(playlist.name)}</h4><small>${playlist.surahs.length} Surah${playlist.surahs.length === 1 ? "" : "s"}</small></div>
+                                <div class="audio-row-actions"><button class="ghost-btn" data-playlist-play="${esc(playlist.id)}" ${playlist.surahs.length ? "" : "disabled"}>▶ Play</button><button class="ghost-btn" data-playlist-rename="${esc(playlist.id)}" title="Rename">✎</button><button class="ghost-btn" data-playlist-delete="${esc(playlist.id)}" title="Delete">×</button></div>
+                            </div>
+                            <div class="audio-playlist-surahs">${playlist.surahs.length ? playlist.surahs.map((surah, index) => `<div class="audio-collection-row" draggable="false" data-drag-kind="playlist" data-playlist-id="${esc(playlist.id)}" data-index="${index}"><div class="audio-row-copy"><b><span class="audio-drag-handle" aria-hidden="true">⠿</span> ${esc(audioLibrarySurahLabel(surah))}</b></div><div class="audio-row-actions"><button class="ghost-btn" data-playlist-remove="${esc(playlist.id)}" data-index="${index}" title="Remove">×</button></div></div>`).join("") : '<div class="audio-empty">No Surahs added yet.</div>'}</div>
+                        </div>`).join("") : '<div class="audio-empty">No playlists yet. Create your first playlist above.</div>';
+                    const currentQueuePlayback = state.audioLibraryPlayback?.mode === "queue" ? state.audioLibraryPlayback : null;
+                    queueHost.innerHTML = state.audioLibraryQueue.length ? state.audioLibraryQueue.map((surah, index) => {
+                        const isPlaying = currentQueuePlayback && index === 0 && !currentQueuePlayback.queueCurrentRemoved;
+                        return `<div class="audio-collection-row${isPlaying ? " is-playing" : ""}" draggable="false" data-drag-kind="queue" data-index="${index}"><div class="audio-row-copy"><b><span class="audio-drag-handle" aria-hidden="true">⠿</span> ${esc(audioLibrarySurahLabel(surah))}</b><small>${isPlaying ? "Currently playing from queue" : `Up next · ${index + 1}`}</small></div><div class="audio-row-actions"><button class="ghost-btn" data-queue-remove="${index}" title="Remove">×</button></div></div>`;
+                    }).join("") : '<div class="audio-empty">Your queue is empty. Add Surahs to play them after the current audio finishes.</div>';
+                    const playlistSelect = $("#audioAddToPlaylist");
+                    if (playlistSelect) playlistSelect.innerHTML = '<option value="">Choose playlist…</option>' + state.audioLibraryPlaylists.map(p => `<option value="${esc(p.id)}">${esc(p.name)}</option>`).join("");
+                    const queueCount = $("#audioQueueCount");
+                    if (queueCount) queueCount.textContent = `${state.audioLibraryQueue.length} item${state.audioLibraryQueue.length === 1 ? "" : "s"}`;
+                    const clearQueueButton = $("#clearAudioQueue");
+                    if (clearQueueButton) clearQueueButton.disabled = !state.audioLibraryQueue.length;
+                }
+                function moveAudioLibraryItem(items, from, to) {
+                    if (from < 0 || to < 0 || from >= items.length || to >= items.length) return;
+                    const [item] = items.splice(from, 1); items.splice(to, 0, item);
+                }
+                async function playAudioLibrarySurah(surahNumber, mode, playlistId = null, position = 0) {
+                    const number = Number(surahNumber);
+                    if (!Number.isInteger(number) || number < 1 || number > 114) return;
+                    state.audioLibraryPlayback = { mode, playlistId, currentSurah: number, position };
+                    renderAudioLibraryCollections();
+                    await playSurah(number, "audio");
+                }
+                async function playAudioLibraryNext() {
+                    const playback = state.audioLibraryPlayback;
+                    if (state.audioNextInProgress) return false;
+                    if (playback?.mode === "queue") {
+                        if (!playback.queueCurrentRemoved && state.audioLibraryQueue.length) state.audioLibraryQueue.shift();
+                        persistAudioLibraryCollections();
+                        renderAudioLibraryCollections();
+                        if (state.audioLibraryQueue.length) {
+                            state.audioNextInProgress = true;
+                            try { await playAudioLibrarySurah(state.audioLibraryQueue[0], "queue", null, 0); }
+                            finally { state.audioNextInProgress = false; }
+                        } else {
+                            state.audioLibraryPlayback = null;
+                            state.audioPlaybackSource = null;
+                            renderAudioLibraryCollections();
+                            $("#playPause").textContent = "▶";
+                        }
+                        return true;
+                    }
+                    if (!playback && state.audioLibraryQueue.length) {
+                        state.audioNextInProgress = true;
+                        try { await playAudioLibrarySurah(state.audioLibraryQueue[0], "queue", null, 0); }
+                        finally { state.audioNextInProgress = false; }
+                        return true;
+                    }
+                    if (!playback) return false;
+                    if (playback.mode === "playlist") {
+                        const playlist = state.audioLibraryPlaylists.find(p => p.id === playback.playlistId);
+                        const nextPosition = Number(playback.position || 0) + 1;
+                        if (playlist && nextPosition < playlist.surahs.length) {
+                            state.audioNextInProgress = true;
+                            try { await playAudioLibrarySurah(playlist.surahs[nextPosition], "playlist", playback.playlistId, nextPosition); }
+                            finally { state.audioNextInProgress = false; }
+                        } else {
+                            state.audioLibraryPlayback = null;
+                            state.audioPlaybackSource = null;
+                            audio.pause();
+                            $("#playPause").textContent = "▶";
+                        }
+                        return true;
+                    }
+                    return false;
+                }
                 function audioPage() {
                     title("Audio Library");
-                    view.innerHTML = `<div class="section-head"><div><h2>Listen to the Quran</h2><p>Listen to the selected Surah in its entirety, from the first Ayah to the last.</p></div></div>
+                    view.innerHTML = `<div class="section-head"><div><h2>Listen to the Quran</h2><p>Listen to complete Surahs, organize playlists and add upcoming Surahs to play after the current audio.</p></div></div>
   <div class="card audio-library-card">
     <div class="card-title"><span>Full Surah Audio</span><span style="color:var(--gold2)">♫</span></div>
     <div class="toolbar">
@@ -3140,15 +3564,230 @@ body {
         <select class="field" id="audioReciterSelect"><option value="">Default available recitation</option>${state.reciters.map((r) => `<option value="${esc(pick(r, ["id", "reciter_id"]))}" ${String(pick(r, ["id", "reciter_id"])) === String(state.reciter) ? "selected" : ""}>${esc(pick(r, ["name", "english_name", "reciter_name"], "Reciter"))}</option>`).join("")}</select>
       </label>
     </div>
-    <div class="audio-actions">
-      <button class="primary-btn" id="playSelectedSurah">▶ Play Full Surah</button>
-      
+    <div class="audio-actions"><button class="primary-btn" id="playSelectedSurah">▶ Play Full Surah</button></div>
+    <div class="audio-queue-add-row">
+      <label class="muted" for="audioQueueSurahSelect">Add surah to queue</label>
+      <select class="field" id="audioQueueSurahSelect" aria-label="Add surah to queue" multiple><option value="" disabled>Add surah to queue</option>${state.surahs.map(s => `<option value="${s.number}">${s.number}. ${esc(surahName(s))}</option>`).join("")}</select>
     </div>
+    <div class="audio-collection-tools"><button class="ghost-btn" id="createAudioPlaylist">＋ Create Playlist</button><select class="field" id="audioAddToPlaylist"><option value="">Choose playlist…</option></select><button class="ghost-btn" id="addSelectedToPlaylist">＋ Add to Playlist</button></div>
+  </div>
+  <div class="audio-collections">
+    <div class="card audio-collection-card"><div class="card-title"><span>My Playlists</span><button class="ghost-btn" id="createAudioPlaylistSecondary">＋ New Playlist</button></div><div class="audio-collection-list" id="audioPlaylistList"></div></div>
+    <div class="card audio-collection-card"><div class="card-title"><span>Up Next</span><small id="audioQueueCount" class="muted">0 items</small></div><div class="audio-collection-list" id="audioQueueList"></div><div class="audio-collection-tools"><button class="ghost-btn" id="clearAudioQueue" ${state.audioLibraryQueue.length ? "" : "disabled"}>Clear queue</button></div></div>
   </div>`;
-                    $("#audioReciterSelect").onchange = (e) => {
-                        state.reciter = e.target.value;
+                    renderAudioLibraryCollections();
+                    const createPlaylist = () => {
+                        const name = window.prompt("Enter a name for your playlist:");
+                        if (name === null) return;
+                        const cleanName = name.trim();
+                        if (!cleanName) return notify("Playlist name cannot be empty.");
+                        state.audioLibraryPlaylists.push({ id: `playlist-${Date.now()}-${Math.random().toString(36).slice(2,8)}`, name: cleanName, surahs: [] });
+                        persistAudioLibraryCollections(); renderAudioLibraryCollections(); notify("Playlist created.");
                     };
-                    $("#playSelectedSurah").onclick = () => playSurah(Number($("#audioSurahSelect").value));
+                    $("#audioReciterSelect").onchange = (e) => { state.reciter = e.target.value; };
+                    $("#playSelectedSurah").onclick = () => { state.audioLibraryPlayback = null; void playSurah(Number($("#audioSurahSelect").value), "audio"); };
+                    const queueSurahSelect = $("#audioQueueSurahSelect");
+                    queueSurahSelect.onchange = () => {
+                        const numbers = Array.from(queueSurahSelect.selectedOptions)
+                            .map((option) => Number(option.value))
+                            .filter((number) => Number.isInteger(number) && number >= 1 && number <= 114);
+                        if (!numbers.length) return;
+                        state.audioLibraryQueue.push(...numbers);
+                        persistAudioLibraryCollections();
+                        renderAudioLibraryCollections();
+                        Array.from(queueSurahSelect.options).forEach((option) => { option.selected = false; });
+                        const placeholder = Array.from(queueSurahSelect.options).find((option) => !option.value);
+                        if (placeholder) placeholder.selected = true;
+                        queueSurahSelect.dispatchEvent(new Event("change", { bubbles: true }));
+                        const addedNames = numbers.map((number) => audioLibrarySurahLabel(number));
+                        notify(`${addedNames.length} Surah${addedNames.length === 1 ? "" : "s"} added to queue.`);
+                    };
+                    $("#createAudioPlaylist").onclick = createPlaylist;
+                    $("#createAudioPlaylistSecondary").onclick = createPlaylist;
+                    $("#addSelectedToPlaylist").onclick = () => {
+                        const id = $("#audioAddToPlaylist").value; const playlist = state.audioLibraryPlaylists.find(p => p.id === id);
+                        if (!playlist) return notify("Choose a playlist first.");
+                        playlist.surahs.push(Number($("#audioSurahSelect").value)); persistAudioLibraryCollections(); renderAudioLibraryCollections(); notify("Surah added to playlist.");
+                    };
+                    $("#clearAudioQueue").onclick = () => { state.audioLibraryQueue = []; if (state.audioLibraryPlayback?.mode === "queue") { state.audioLibraryPlayback = null; state.audioPlaybackSource = null; } persistAudioLibraryCollections(); renderAudioLibraryCollections(); };
+                    $("#audioPlaylistList").onclick = (event) => {
+                        const b = event.target.closest("button"); if (!b) return;
+                        const id = b.dataset.playlistPlay || b.dataset.playlistRename || b.dataset.playlistDelete || b.dataset.playlistUp || b.dataset.playlistDown || b.dataset.playlistRemove;
+                        const playlist = state.audioLibraryPlaylists.find(p => p.id === id);
+                        if (b.dataset.playlistPlay) { if (playlist?.surahs.length) void playAudioLibrarySurah(playlist.surahs[0], "playlist", id, 0); }
+                        else if (b.dataset.playlistRename) { const name = window.prompt("Rename playlist:", playlist?.name || ""); if (name !== null && name.trim() && playlist) { playlist.name = name.trim(); persistAudioLibraryCollections(); renderAudioLibraryCollections(); } }
+                        else if (b.dataset.playlistDelete) { if (playlist && window.confirm(`Delete playlist “${playlist.name}”?`)) { state.audioLibraryPlaylists = state.audioLibraryPlaylists.filter(p => p.id !== id); if (state.audioLibraryPlayback?.playlistId === id) { state.audioLibraryPlayback = null; state.audioPlaybackSource = null; } persistAudioLibraryCollections(); renderAudioLibraryCollections(); } }
+                        else if (playlist && b.dataset.playlistRemove !== undefined) {
+                            const removed = Number(b.dataset.index); playlist.surahs.splice(removed,1);
+                            const playback = state.audioLibraryPlayback?.mode === "playlist" && state.audioLibraryPlayback.playlistId === id ? state.audioLibraryPlayback : null;
+                            if (playback && removed < playback.position) playback.position--;
+                            persistAudioLibraryCollections(); renderAudioLibraryCollections();
+                        }
+                        else if (playlist && (b.dataset.playlistUp !== undefined || b.dataset.playlistDown !== undefined)) {
+                            const from = Number(b.dataset.index); const to = from + (b.dataset.playlistUp !== undefined ? -1 : 1);
+                            moveAudioLibraryItem(playlist.surahs, from, to);
+                            const playback = state.audioLibraryPlayback?.mode === "playlist" && state.audioLibraryPlayback.playlistId === id ? state.audioLibraryPlayback : null;
+                            if (playback) { if (playback.position === from) playback.position = to; else if (from < playback.position && to >= playback.position) playback.position--; else if (from > playback.position && to <= playback.position) playback.position++; }
+                            persistAudioLibraryCollections(); renderAudioLibraryCollections();
+                        }
+                    };
+                    $("#audioQueueList").onclick = (event) => {
+                        const b = event.target.closest("button"); if (!b) return;
+                        if (b.dataset.queueRemove !== undefined) {
+                            const removed = Number(b.dataset.queueRemove);
+                            if (state.audioLibraryPlayback?.mode === "queue" && removed === 0) state.audioLibraryPlayback.queueCurrentRemoved = true;
+                            state.audioLibraryQueue.splice(removed, 1);
+                        }
+                        persistAudioLibraryCollections(); renderAudioLibraryCollections();
+                    };
+                    let draggedAudioItem = null;
+                    const bindAudioDrag = (host) => {
+                        let placeholder = null;
+                        let pointerId = null;
+                        let floatingRow = null;
+                        let sourceRow = null;
+                        let sourceOriginalStyle = null;
+                        let dragStarted = false;
+                        const belongsToDragGroup = (row) => row && row.dataset.dragKind === draggedAudioItem?.kind &&
+                            (row.dataset.playlistId || null) === draggedAudioItem?.playlistId;
+                        const getItems = () => draggedAudioItem.kind === "queue"
+                            ? state.audioLibraryQueue
+                            : (state.audioLibraryPlaylists.find(p => p.id === draggedAudioItem.playlistId)?.surahs || []);
+                        const groupRows = () => Array.from(host.querySelectorAll('[data-drag-kind]')).filter(row =>
+                            belongsToDragGroup(row) && row !== placeholder);
+                        const animateReflow = (movePlaceholder) => {
+                            const before = groupRows().map(row => [row, row.getBoundingClientRect()]);
+                            movePlaceholder();
+                            before.forEach(([row, rect]) => {
+                                const next = row.getBoundingClientRect();
+                                const dx = rect.left - next.left;
+                                const dy = rect.top - next.top;
+                                if (dx || dy) {
+                                    row.style.transition = "none";
+                                    row.style.transform = `translate(${dx}px, ${dy}px)`;
+                                    row.getBoundingClientRect();
+                                    requestAnimationFrame(() => {
+                                        row.style.transition = "transform 180ms cubic-bezier(.2,.75,.25,1)";
+                                        row.style.transform = "";
+                                    });
+                                }
+                            });
+                        };
+                        const clearPreview = () => {
+                            // Put the exact same DOM row back; no faded source row or duplicate clone.
+                            if (sourceRow && placeholder?.parentNode) placeholder.parentNode.insertBefore(sourceRow, placeholder);
+                            placeholder?.remove(); placeholder = null;
+                            if (sourceRow) {
+                                sourceRow.classList.remove("is-dragging", "is-dragging-source");
+                                if (sourceOriginalStyle === null) sourceRow.removeAttribute("style");
+                                else sourceRow.setAttribute("style", sourceOriginalStyle);
+                            }
+                            floatingRow = null;
+                            host.querySelectorAll('[data-drag-kind]').forEach(row => {
+                                row.style.transition = "";
+                                row.style.transform = "";
+                            });
+                            sourceRow = null; sourceOriginalStyle = null; dragStarted = false;
+                        };
+                        const positionPlaceholder = (x, y) => {
+                            if (!dragStarted || !draggedAudioItem || !placeholder) return;
+                            const rows = groupRows();
+                            if (!rows.length) return;
+                            const under = document.elementFromPoint(x, y)?.closest('[data-drag-kind]');
+                            let reference = null;
+                            if (belongsToDragGroup(under)) {
+                                const rect = under.getBoundingClientRect();
+                                reference = y > rect.top + rect.height / 2 ? under.nextSibling : under;
+                            } else {
+                                const first = rows[0];
+                                const last = rows[rows.length - 1];
+                                if (y < first.getBoundingClientRect().top) reference = first;
+                                else if (y > last.getBoundingClientRect().bottom) reference = last.nextSibling;
+                                else return;
+                            }
+                            if (reference === placeholder || reference === placeholder.nextSibling) return;
+                            animateReflow(() => placeholder.parentNode.insertBefore(placeholder, reference));
+                        };
+                        const finishReorder = (commit = true) => {
+                            if (!draggedAudioItem) return;
+                            if (commit && dragStarted && placeholder?.parentNode) {
+                                const from = draggedAudioItem.from;
+                                let to = 0;
+                                for (let node = placeholder.parentNode.firstElementChild; node && node !== placeholder; node = node.nextElementSibling) {
+                                    if (belongsToDragGroup(node)) to++;
+                                }
+                                const items = getItems();
+                                if (items.length && from >= 0 && from < items.length) {
+                                    const boundedTo = Math.max(0, Math.min(items.length - 1, to));
+                                    moveAudioLibraryItem(items, from, boundedTo);
+                                    if (draggedAudioItem.kind === "playlist") {
+                                        const playback = state.audioLibraryPlayback?.mode === "playlist" && state.audioLibraryPlayback.playlistId === draggedAudioItem.playlistId ? state.audioLibraryPlayback : null;
+                                        if (playback) {
+                                            if (playback.position === from) playback.position = boundedTo;
+                                            else if (from < playback.position && boundedTo >= playback.position) playback.position--;
+                                            else if (from > playback.position && boundedTo <= playback.position) playback.position++;
+                                        }
+                                    }
+                                }
+                            }
+                            draggedAudioItem = null; pointerId = null;
+                            clearPreview();
+                            if (commit) { persistAudioLibraryCollections(); renderAudioLibraryCollections(); }
+                        };
+                        const beginDrag = (event, row) => {
+                            sourceRow = row;
+                            sourceOriginalStyle = row.getAttribute("style");
+                            draggedAudioItem = { kind: row.dataset.dragKind, playlistId: row.dataset.playlistId || null, from: Number(row.dataset.index), row };
+                            pointerId = event.pointerId;
+                            const rect = row.getBoundingClientRect();
+                            placeholder = document.createElement("div");
+                            placeholder.className = "audio-drop-placeholder";
+                            placeholder.style.height = `${rect.height}px`;
+                            row.parentNode.insertBefore(placeholder, row);
+                            // Move the original row itself. This guarantees exactly one visible dragged item.
+                            row.classList.add("is-dragging");
+                            Object.assign(row.style, {
+                                position: "fixed", zIndex: "99999", pointerEvents: "none", boxSizing: "border-box",
+                                width: `${rect.width}px`, left: `${rect.left}px`, top: `${rect.top}px`,
+                                margin: "0", opacity: "1", transition: "none"
+                            });
+                            document.body.appendChild(row);
+                            floatingRow = row;
+                            dragStarted = true;
+                        };
+
+                        // Unified pointer drag path. Native draggable is disabled in the row markup.
+                        host.addEventListener("pointerdown", event => {
+                            const handle = event.target.closest?.(".audio-drag-handle");
+                            const row = handle?.closest('[data-drag-kind]');
+                            if (!row || row.classList.contains("is-playing") || event.button !== 0) return;
+                            event.preventDefault();
+                            beginDrag(event, row);
+                            try { handle.setPointerCapture(event.pointerId); } catch (_) {}
+                        }, { passive: false });
+                        document.addEventListener("pointermove", event => {
+                            if (!draggedAudioItem || pointerId !== event.pointerId || !floatingRow) return;
+                            event.preventDefault();
+                            floatingRow.style.left = `${event.clientX + 8}px`;
+                            floatingRow.style.top = `${event.clientY + 8}px`;
+                            positionPlaceholder(event.clientX, event.clientY);
+                        }, { passive: false });
+                        document.addEventListener("pointerup", event => {
+                            if (!draggedAudioItem || pointerId !== event.pointerId) return;
+                            positionPlaceholder(event.clientX, event.clientY);
+                            finishReorder(true);
+                        });
+                        document.addEventListener("pointercancel", event => {
+                            if (!draggedAudioItem || pointerId !== event.pointerId) return;
+                            finishReorder(false);
+                        });
+                        document.addEventListener("keydown", event => {
+                            if (event.key === "Escape" && draggedAudioItem) finishReorder(false);
+                        });
+                    };
+                    bindAudioDrag($("#audioQueueList"));
+                    bindAudioDrag($("#audioPlaylistList"));
+
                 }
                 // Audio + Ayah Highlight: one full-Surah text request, one full-Surah
                 // audio request, and reciter-specific Ayah duration data cached in IndexedDB.
@@ -3671,10 +4310,11 @@ body {
                     if (!ayahAudioReciters.some((r) => getReciterId(r) === String(state.reciter))) {
                         state.reciter = ayahAudioReciters.length ? getReciterId(ayahAudioReciters[0]) : "";
                     }
-                    state.audioReaderPrepared = null;
-                    state.audioPlaybackContext = null;
+                    // Invalidate pending page-specific preparation requests, but retain
+                    // successfully prepared Ayahs/timings across page navigation.
                     state.audioReaderRequestId++;
-                    const defaultSurah = Number(state.currentSurah) || 1;
+                    const restoredPrepared = state.audioReaderPrepared;
+                    const defaultSurah = Number(restoredPrepared?.surah || state.currentSurah) || 1;
                     const reciterOptions = ayahAudioReciters.map((r) => {
                         const id = getReciterId(r);
                         return `<option value="${esc(id)}" ${String(id) === String(state.reciter) ? "selected" : ""}>${esc(getReciterName(r) || "Reciter")}</option>`;
@@ -3696,7 +4336,7 @@ body {
                             </div>
                             <div class="audio-reader-status" id="audioReaderStatus">Select a Surah and reciter, then load the Surah. Previously saved timings will be reused automatically.</div>
                             <div class="audio-reader-progress" id="audioReaderProgress" hidden><span id="audioReaderProgressFill"></span></div>
-                            <details id="audioReaderWakeLockDebug" style="margin-top:12px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel2,#151515)">
+                            <details id="audioReaderWakeLockDebug" ${showWakeLockDebug ? "" : "hidden"} style="margin-top:12px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel2,#151515)">
                                 <summary style="cursor:pointer;color:var(--gold2);font-size:13px;font-weight:600">Temporary Wake Lock Debug Status</summary>
                                 <div style="display:grid;grid-template-columns:minmax(105px,auto) 1fr;gap:6px 12px;margin-top:10px;font-size:12px;line-height:1.5">
                                     <span class="muted">API support</span><strong data-wakelock-debug="support">Checking…</strong>
@@ -3711,7 +4351,36 @@ body {
                             </details>
                         </div>
                         <div id="audioReaderText" aria-live="polite"></div></div>`;
-                    requestAnimationFrame(fitAudioReaderText);
+                    const canRestorePrepared = Boolean(
+                        restoredPrepared &&
+                        Number(restoredPrepared.surah) === defaultSurah &&
+                        String(restoredPrepared.reciterId) === String(state.reciter) &&
+                        Array.isArray(restoredPrepared.ayahs) && restoredPrepared.ayahs.length &&
+                        restoredPrepared.playbackContext
+                    );
+                    if (canRestorePrepared) {
+                        $("#audioReaderText").innerHTML = renderAudioReaderAyahs(restoredPrepared.ayahs, restoredPrepared.surah);
+                        state.audioPlaybackContext = restoredPrepared.playbackContext;
+                        // Force the current-time synchronizer to apply the active class
+                        // to the newly-created DOM, even if the Ayah did not change.
+                        state.audioPlaybackContext.currentAyah = 0;
+                        setAudioReaderStatus(
+                            `Restored ${restoredPrepared.ayahs.length} Ayahs and prepared timings for ${restoredPrepared.reciterName}.` ,
+                            "success", 100
+                        );
+                        $("#playAudioReader").textContent = audio.paused ? "▶ Play Full Surah" : "Ⅱ Playing Full Surah";
+                        $("#playAudioReader").disabled = false;
+                        // Reapply the active Ayah after the restored markup has been
+                        // committed. Two frames allow the reader pane and its children
+                        // to finish layout before scrolling the active Ayah into view.
+                        requestAnimationFrame(() => {
+                            fitAudioReaderText();
+                            requestAnimationFrame(() => syncAudioAyahHighlight(true));
+                        });
+                    } else {
+                        state.audioPlaybackContext = null;
+                        requestAnimationFrame(fitAudioReaderText);
+                    }
                     updateAudioReaderWakeLockDebug();
 
                     const ayahTextRegion = $("#audioReaderText");
@@ -3779,10 +4448,17 @@ body {
                         } else {
                             state.audioPlaybackContext = prepared.playbackContext;
                         }
+                        state.audioPlaybackSource = {
+                            kind: "full-surah",
+                            sourcePage: "audio-reader",
+                            surah: Number(prepared.surah),
+                        };
                         try {
                             await audio.play();
                             $("#playPause").textContent = "Ⅱ";
-                            syncAudioAyahHighlight();
+                            const readerPlayButton = $("#playAudioReader");
+                            if (readerPlayButton) readerPlayButton.textContent = "Ⅱ Playing Full Surah";
+                            syncAudioAyahHighlight(true);
                             void syncAudioReaderWakeLock();
                         } catch (error) {
                             void syncAudioReaderWakeLock();
@@ -3893,6 +4569,7 @@ body {
                         if (!totalDuration || !Array.isArray(timings) || !timings.length) throw new Error("Ayah timings could not be calculated.");
                         const playbackContext = {
                             kind: "audio-reader-surah",
+                            sourcePage: "audio-reader",
                             surah: surahNumber,
                             timings,
                             totalDuration,
@@ -3914,7 +4591,13 @@ body {
                             reciterName: fullAudio.reciterName,
                             url: fullAudio.url,
                             playbackContext,
+                            ayahs,
                             cacheUsed,
+                        };
+                        state.audioPlaybackSource = {
+                            kind: "full-surah",
+                            sourcePage: "audio-reader",
+                            surah: surahNumber,
                         };
                         setAudio(fullAudio.url, `${surahNumber}. ${surahName(getSurah(surahNumber))} · Full Surah`, fullAudio.reciterName, playbackContext, false);
                         $("#playAudioReader").disabled = false;
@@ -4618,7 +5301,7 @@ body {
                     setTimeout(() => URL.revokeObjectURL(url), 30000);
                     setTimingExportStatus(`JSON download prepared. It contains ${summary.completeSets} complete timing sets and ${summary.incompleteSets} incomplete sets. Check the errors array before sharing the file.`, summary.incompleteSets ? "error" : "success");
                 }
-                function syncAudioAyahHighlight() {
+                function syncAudioAyahHighlight(forceRefresh = false) {
                     const context = state.audioPlaybackContext;
                     if (!context || context.kind !== "audio-reader-surah" || state.page !== "audio-reader") return;
                     if (!Array.isArray(context.timings) || !context.timings.length || !Number.isFinite(audio.currentTime)) return;
@@ -4640,13 +5323,22 @@ body {
                     }
                     const active = context.timings[activeIndex];
                     if (!active) return;
-                    if (context.currentAyah !== active.ayah) {
-                        const previous = document.querySelector(".audio-reader-ayah.is-active");
-                        if (previous) previous.classList.remove("is-active");
-                        const current = $(`#audio-reader-ayah-${active.ayah}`);
+
+                    const current = $(`#audio-reader-ayah-${active.ayah}`);
+                    const previous = document.querySelector(".audio-reader-ayah.is-active");
+                    // Do not rely only on context.currentAyah: after navigation the
+                    // context survives but the Ayah DOM is newly-created. The DOM may
+                    // therefore need its active class restored even when the logical
+                    // Ayah number has not changed.
+                    const domNeedsRefresh = !current || !current.classList.contains("is-active") || previous !== current;
+                    const ayahChanged = context.currentAyah !== active.ayah;
+                    if (forceRefresh || domNeedsRefresh || ayahChanged) {
+                        if (previous && previous !== current) previous.classList.remove("is-active");
                         if (current) {
                             current.classList.add("is-active");
-                            current.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
+                            if (forceRefresh || domNeedsRefresh || ayahChanged) {
+                                current.scrollIntoView({ behavior: "auto", block: "nearest", inline: "nearest" });
+                            }
                         }
                         context.currentAyah = active.ayah;
                         const label = $("#audioReaderCurrentAyah");
@@ -4657,6 +5349,9 @@ body {
                 }
 
                 async function playAyah(s, a) {
+                    // Individual-Ayah playback must not inherit full-Surah auto-advance.
+                    state.audioLibraryPlayback = null;
+                    state.audioPlaybackSource = null;
                     try {
                         const data = unwrap(await api(`/api/quran/audio/${s}/${a}`));
                         const items = asArray(data);
@@ -4687,13 +5382,23 @@ body {
                         notify(e.message);
                     }
                 }
-                async function playSurah(s) {
+                async function playSurah(s, sourcePage = state.page) {
+                    // Playlist/queue callers set this context before entering playSurah.
+                    // A normal manual Surah selection clears collection playback mode.
+                    if (sourcePage !== "audio" || !state.audioLibraryPlayback || Number(state.audioLibraryPlayback.currentSurah) !== Number(s)) state.audioLibraryPlayback = null;
+                    // Clear the previous origin while the newly selected Surah is loading.
+                    state.audioPlaybackSource = null;
                     try {
                         const fullAudio = await fetchFullSurahAudio(s);
                         state.audioQueue = [fullAudio.url];
                         state.audioIndex = 0;
                         state.lastRecited = { surah: s, ayah: 1, name: surahName(getSurah(s)) };
                         localStorage.setItem("alquran_lastrecited", JSON.stringify(state.lastRecited));
+                        state.audioPlaybackSource = {
+                            kind: "full-surah",
+                            sourcePage: sourcePage === "reader" || sourcePage === "audio" ? sourcePage : "audio",
+                            surah: Number(s),
+                        };
                         setAudio(fullAudio.url, `${s}. ${surahName(getSurah(s))} · Full Surah`, fullAudio.reciterName);
                     } catch (e) {
                         notify(e.message || "Unable to load full-Surah audio.");
@@ -4703,7 +5408,19 @@ body {
                     state.audioPlaybackContext = playbackContext;
                     audio.src = url;
                     audio.load();
-                    $("#playerTitle").textContent = t;
+                    const playerTitle = $("#playerTitle");
+                    playerTitle.replaceChildren();
+                    const fullSurahMarker = " · Full Surah";
+                    if (t.endsWith(fullSurahMarker)) {
+                        playerTitle.append(document.createTextNode(t.slice(0, -fullSurahMarker.length)));
+                        const marker = document.createElement("small");
+                        marker.className = "player-title-tag";
+                        marker.textContent = "Full Surah";
+                        playerTitle.append(document.createTextNode(" "));
+                        playerTitle.append(marker);
+                    } else {
+                        playerTitle.textContent = t;
+                    }
                     $("#playerSub").textContent = sub;
                     $("#playPause").textContent = "▶";
                     if (autoPlay) {
@@ -4712,7 +5429,12 @@ body {
                             .catch(() => notify("Press play to start audio."));
                     }
                 }
-                function playNext() {
+                async function playNext() {
+                    if (state.audioPlaybackSource?.sourcePage === "audio" && (state.audioLibraryPlayback || state.audioLibraryQueue.length)) {
+                        await playAudioLibraryNext();
+                        return;
+                    }
+                    // Preserve the original multi-track queue behavior.
                     if (state.audioQueue.length > 1) {
                         state.audioIndex = (state.audioIndex + 1) % state.audioQueue.length;
                         setAudio(
@@ -4720,6 +5442,64 @@ body {
                             $("#playerTitle").textContent,
                             $("#playerSub").textContent
                         );
+                        return;
+                    }
+
+                    if (state.audioNextInProgress) return;
+                    const source = state.audioPlaybackSource;
+                    if (!source || source.kind !== "full-surah") return;
+
+                    const currentSurah = Number(source.surah);
+                    const nextSurah = currentSurah + 1;
+                    // Do not wrap from Surah 114 back to Surah 1.
+                    if (!Number.isInteger(currentSurah) || nextSurah > 114) return;
+
+                    state.audioNextInProgress = true;
+                    audio.pause();
+                    try {
+                        if (source.sourcePage === "reader") {
+                            // Quran Reader: load the next Surah in the reader, then play it.
+                            const loaded = await loadSurah(nextSurah, 1);
+                            if (!loaded) return;
+                            await playSurah(nextSurah, "reader");
+                            return;
+                        }
+
+                        if (source.sourcePage === "audio") {
+                            // Listen to the Quran: keep this page as-is; update only its
+                            // selected Surah and start the next full-Surah audio.
+                            const surahSelect = $("#audioSurahSelect");
+                            if (surahSelect) surahSelect.value = String(nextSurah);
+                            await playSurah(nextSurah, "audio");
+                            return;
+                        }
+
+                        if (source.sourcePage === "audio-reader") {
+                            // Live highlighting: prepare the next Surah's text, audio and
+                            // reciter-specific Ayah timings before starting playback.
+                            if (state.page !== "audio-reader") go("audio-reader");
+                            const surahSelect = $("#audioReaderSurah");
+                            if (!surahSelect) throw new Error("The live Ayah reader could not be opened.");
+                            surahSelect.value = String(nextSurah);
+                            const prepared = await prepareAudioReader();
+                            if (!prepared || Number(state.audioReaderPrepared?.surah) !== nextSurah) return;
+
+                            state.audioPlaybackSource = {
+                                kind: "full-surah",
+                                sourcePage: "audio-reader",
+                                surah: nextSurah,
+                            };
+                            await audio.play();
+                            $("#playPause").textContent = "Ⅱ";
+                            const readerPlayButton = $("#playAudioReader");
+                            if (readerPlayButton) readerPlayButton.textContent = "Ⅱ Playing Full Surah";
+                            syncAudioAyahHighlight(true);
+                            void syncAudioReaderWakeLock();
+                        }
+                    } catch (error) {
+                        notify(error.message || "Unable to load the next Surah.");
+                    } finally {
+                        state.audioNextInProgress = false;
                     }
                 }
                 function fmt(n) {
@@ -4741,7 +5521,9 @@ body {
                         $("#duration").textContent = fmt(audio.duration);
                     }
                 });
-                audio.addEventListener("loadedmetadata", syncAudioAyahHighlight);
+                audio.addEventListener("loadedmetadata", () => syncAudioAyahHighlight(true));
+                audio.addEventListener("seeked", () => syncAudioAyahHighlight(true));
+                audio.addEventListener("playing", () => syncAudioAyahHighlight(true));
                 $("#audioProgress").oninput = (e) => {
                     if (audio.duration) audio.currentTime = (audio.duration * e.target.value) / 100;
                 };
@@ -4753,11 +5535,13 @@ body {
                         $("#playPause").textContent = "▶";
                     }
                 };
-                $("#nextAudio").onclick = playNext;
+                $("#nextAudio").onclick = () => { void playNext(); };
                 $("#prevAudio").onclick = () => {
                     audio.currentTime = 0;
                 };
-                audio.addEventListener("ended", playNext);
+                // The same page-aware transition runs for manual Next and when a
+                // complete Surah reaches its end.
+                audio.addEventListener("ended", () => { void playNext(); });
                 document.querySelectorAll(".nav button").forEach((b) => (b.onclick = () => go(b.dataset.page)));
                 $("#menuBtn").onclick = () => $("#sidebar").classList.toggle("open");
                 $("#closeSidebar").onclick = () => $("#sidebar").classList.remove("open");
@@ -4838,7 +5622,23 @@ body {
                     menu.append(menuHeader, search, optionsBox);
                     wrap.append(trigger, menu);
 
+                    const isQueueMultiSelect = select.id === "audioQueueSurahSelect" && select.multiple;
+                    let multiFooter = null;
+                    let multiAddButton = null;
                     function refresh() {
+                        if (isQueueMultiSelect) {
+                            const selectedCount = Array.from(select.selectedOptions).filter((opt) => opt.value).length;
+                            label.textContent = selectedCount ? `${selectedCount} Surah${selectedCount === 1 ? "" : "s"} selected` : "Add surah to queue";
+                            menu.querySelectorAll(".custom-select-option").forEach((button) => {
+                                const option = Array.from(select.options).find((opt) => opt.value === button.dataset.value);
+                                button.setAttribute("aria-selected", String(!!option?.selected));
+                            });
+                            if (multiAddButton) {
+                                multiAddButton.disabled = selectedCount === 0;
+                                multiAddButton.textContent = selectedCount ? `Add ${selectedCount} to Queue` : "Add to Queue";
+                            }
+                            return;
+                        }
                         const opt = select.options[select.selectedIndex];
                         label.textContent = opt ? opt.textContent : "Choose an option";
                         menu.querySelectorAll(".custom-select-option").forEach((button, i) => {
@@ -4856,14 +5656,21 @@ body {
                     function build() {
                         optionsBox.innerHTML = "";
                         Array.from(select.options).forEach((opt) => {
+                            if (isQueueMultiSelect && !opt.value) return;
                             const button = document.createElement("button");
                             button.type = "button";
                             button.className = "custom-select-option";
                             button.textContent = opt.textContent;
-                            button.setAttribute("role", "option");
-                            button.setAttribute("aria-selected", String(opt.value === select.value));
+                            button.dataset.value = opt.value;
+                            button.setAttribute("role", isQueueMultiSelect ? "checkbox" : "option");
+                            button.setAttribute("aria-selected", String(isQueueMultiSelect ? opt.selected : opt.value === select.value));
                             button.disabled = opt.disabled;
                             button.addEventListener("click", () => {
+                                if (isQueueMultiSelect) {
+                                    opt.selected = !opt.selected;
+                                    refresh();
+                                    return;
+                                }
                                 select.value = opt.value;
                                 select.dispatchEvent(new Event("change", { bubbles: true }));
                                 refresh();
@@ -4871,6 +5678,23 @@ body {
                             });
                             optionsBox.appendChild(button);
                         });
+                        if (isQueueMultiSelect) {
+                            multiFooter = document.createElement("div");
+                            multiFooter.className = "custom-select-menu-footer";
+                            multiAddButton = document.createElement("button");
+                            multiAddButton.type = "button";
+                            multiAddButton.className = "primary-btn custom-select-add-button";
+                            multiAddButton.textContent = "Add to Queue";
+                            multiAddButton.disabled = true;
+                            multiAddButton.addEventListener("click", () => {
+                                const selected = Array.from(select.selectedOptions).some((opt) => opt.value);
+                                if (!selected) return;
+                                select.dispatchEvent(new Event("change", { bubbles: true }));
+                                closeSelectModal(true);
+                            });
+                            multiFooter.appendChild(multiAddButton);
+                            menu.appendChild(multiFooter);
+                        }
                         refresh();
                     }
 
